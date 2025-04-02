@@ -13,7 +13,7 @@
         static float pontuacao = 1000;
 
         // Cria uma lista vazia para armazenar os números chutados
-        static List<int> numerosChutados = new List<int> {};
+        static List<int> numerosChutados = new List<int> { };
 
         // Cria uma constante do tipo int para armazenar o valor de 2000ms
         const int tempo = 2000;
@@ -24,38 +24,23 @@
 
         static void Main(string[] args)
         {
-
             bool opcaoContinuar = true;
 
             do
             {
-                // Utiliza o método TryParse que recebe uma string (MostrarMenu) e transforma em um inteiro (opcao)
-                // para invalidar caso o usuário digite texto
                 if (int.TryParse(MostrarMenu(), out int opcao))
                 {
                     switch (opcao)
                     {
-                        case 1:
-                            totalDeTentativas = 10;
-                            break;
-                        case 2:
-                            totalDeTentativas = 5;
-                            break;
-                        case 3:
-                            totalDeTentativas = 3;
-                            break;
-                        default:
-                            Console.WriteLine("-------------------------------------------");
-                            Console.WriteLine("Opção inválida. Tente novamente!");
-                            System.Threading.Thread.Sleep(tempo);
-                            continue;
+                        case 1: totalDeTentativas = 10; break;
+                        case 2: totalDeTentativas = 5; break;
+                        case 3: totalDeTentativas = 3; break;
+                        default: ApresentarMensagem("Opção inválida. Tente novamente!"); continue;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("-------------------------------------------");
-                    Console.WriteLine("Entrada inválida. Digite um número inteiro!");
-                    System.Threading.Thread.Sleep(tempo);
+                    ApresentarMensagem("Entrada inválida. Digite um número inteiro!");
                     continue;
                 }
 
@@ -146,90 +131,72 @@
 
         static void LogicaDoJogo()
         {
-            // Lógica do jogo
             for (int i = 1; i <= totalDeTentativas; i++)
             {
+                int numeroDigitado = ObterNumero();
 
-
-                Console.Write("Digite um número (de 1 à 20) para chutar: ");
-
-                // Mais uma vez utilizado o método TryParse para validar a entrada do usuário
-                // agora passando o Console.Readline() como primeiro parâmetro, pois este retorna uma string
-                if (int.TryParse(Console.ReadLine(), out int numeroDigitado))
+                if (numeroDigitado < 0)
                 {
-
-                    // Utiliza o método Contains da Lista para validar se o número digitado já contém na lista
-                    // e então caso tiver, apresenta o número já chutado
-                    if (numerosChutados.Contains(numeroDigitado))
-                    {
-                        Console.WriteLine("-------------------------------------------");
-                        Console.WriteLine("Número já chutado!");
-                        Console.WriteLine("-------------------------------------------");
-
-                        // Utiliza o método Sleep para suspender a thread atual por um tempo em milisegundos
-                        // então é passado a constante tempo como parâmetro, a qual foi armazenada o valor 2000
-                        System.Threading.Thread.Sleep(tempo);
-
-                        // Decrementa o i (controlador do loop) para não contar a tentativa do número já chutado
-                        i--;
-                        continue;
-                    }
-
-                    if (numeroDigitado < 1 || numeroDigitado > 20)
-                    {
-                        Console.WriteLine("-------------------------------------------");
-                        Console.WriteLine("O número digitado está fora do intervalo!");
-                        Console.WriteLine("-------------------------------------------");
-                        i--;
-                        System.Threading.Thread.Sleep(tempo);
-                        continue;
-                    }
-
-                    // Após passar as primeiras validações, o número digitado é adicionado
-                    // na Lista através do métod Add
-                    numerosChutados.Add(numeroDigitado);
-
-                    if (numeroSecreto == numeroDigitado)
-                    {
-                        Console.WriteLine("-------------------------------------------");
-                        Console.WriteLine("Parabéns, você acertou!");
-                        Console.WriteLine("-------------------------------------------");
-                        break;
-                    }
-
-                    // Realizada a fórmula da pontuação do jogo utilizando o método Abs da classe
-                    // Math para garantir o valor absoluto e forçando a divisão de inteiros
-                    // fazendo um cast para float
-                    pontuacao -= Math.Abs((float)(numeroDigitado - numeroSecreto) / 2);
-
-
-                    if (numeroSecreto > numeroDigitado)
-                    {
-                        Console.WriteLine("-------------------------------------------");
-                        Console.WriteLine("O número secreto é maior!");
-                        Console.WriteLine("-------------------------------------------");
-                        System.Threading.Thread.Sleep(tempo);
-                    }
-                    else
-                    {
-                        Console.WriteLine("-------------------------------------------");
-                        Console.WriteLine("O número secreto é menor!");
-                        Console.WriteLine("-------------------------------------------");
-                        System.Threading.Thread.Sleep(tempo);
-                    }
-
-                }
-                else
-                {
-                    Console.WriteLine("-------------------------------------------");
-                    Console.WriteLine("Entrada inválida. Digite um número inteiro!");
-                    Console.WriteLine("-------------------------------------------");
-                    System.Threading.Thread.Sleep(tempo);
                     i--;
                     continue;
                 }
 
+                if (numeroSecreto == numeroDigitado)
+                {
+                    ApresentarMensagem("Parabéns, você acertou!");
+                    break;
+                }
+
+                pontuacao -= Math.Abs((float)(numeroDigitado - numeroSecreto) / 2);
+
+                if (numeroSecreto > numeroDigitado)
+                    ApresentarMensagem("O número secreto é maior!");
+                else
+                    ApresentarMensagem("O número secreto é menor!");
+
+                RegistrarNumeroChutado(numeroDigitado);
             }
+        }
+
+
+        static int ObterNumero()
+        {
+            Console.Write("Digite um número (de 1 à 20) para chutar: ");
+
+            if (int.TryParse(Console.ReadLine(), out int numeroDigitado))
+            {
+                ApresentarMensagem("Entrada inválida. Digite um número inteiro!");
+                return -1;
+            }
+            if (numerosChutados.Contains(numeroDigitado))
+            {
+                ApresentarMensagem("Número já chutado!");
+                return -1;
+            }
+            if (numeroDigitado < 1 || numeroDigitado > 20)
+            {
+                ApresentarMensagem("O número digitado está fora do intervalo!");
+                return -1;
+            }
+
+            return numeroDigitado;
+        }
+
+
+        static void ApresentarMensagem(string mensagem)
+        {
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine(mensagem);
+            Console.WriteLine("-------------------------------------------");
+
+            // Utiliza o método Sleep para suspender a thread atual por um tempo em milisegundos
+            // então é passado a constante tempo como parâmetro, a qual foi armazenada o valor 2000
+            System.Threading.Thread.Sleep(tempo);
+        }
+
+        static void RegistrarNumeroChutado(int numero)
+        {
+            numerosChutados.Add(numero);
         }
     }
 }
