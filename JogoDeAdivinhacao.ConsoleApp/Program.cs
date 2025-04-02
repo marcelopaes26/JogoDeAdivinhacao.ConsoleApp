@@ -5,10 +5,6 @@
         // Cria uma instância da classe Random
         static Random geradorDeNumeros = new Random();
 
-        // Cria uma variável inteira que recebe a instância de Random e
-        // utiliza o método Next dessa classe para gerar números aleatórios de 1 a 20
-        static int numeroSecreto = geradorDeNumeros.Next(1, 21);
-
         // Cria a varíavel do tipo float para armezenar a pontuação inicial do usuário
         static float pontuacao = 1000;
 
@@ -44,7 +40,7 @@
                     continue;
                 }
 
-                MostrarCabecalho();
+                LogicaDoJogo();
 
                 Console.WriteLine($"Pontuação final: {pontuacao}");
 
@@ -125,14 +121,21 @@
                 }
             }
 
+            numerosChutados = new List<int> { };
             cont++;
 
         }
 
         static void LogicaDoJogo()
         {
+            // Cria uma variável inteira que recebe a instância de Random e
+            // utiliza o método Next dessa classe para gerar números aleatórios de 1 a 20
+            int numeroSecreto = geradorDeNumeros.Next(1, 21);
+
             for (int i = 1; i <= totalDeTentativas; i++)
             {
+                MostrarCabecalho();
+
                 int numeroDigitado = ObterNumero();
 
                 if (numeroDigitado < 0)
@@ -163,7 +166,7 @@
         {
             Console.Write("Digite um número (de 1 à 20) para chutar: ");
 
-            if (int.TryParse(Console.ReadLine(), out int numeroDigitado))
+            if (!int.TryParse(Console.ReadLine(), out int numeroDigitado))
             {
                 ApresentarMensagem("Entrada inválida. Digite um número inteiro!");
                 return -1;
