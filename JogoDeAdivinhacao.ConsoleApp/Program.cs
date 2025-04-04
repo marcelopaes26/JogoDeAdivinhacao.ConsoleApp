@@ -9,14 +9,14 @@
         static float pontuacao = 1000;
 
         // Cria uma lista vazia para armazenar os números chutados
-        static List<int> numerosChutados = new List<int> { };
+        static List<int> numerosChutados = new List<int>();
 
         // Cria uma constante do tipo int para armazenar o valor de 2000ms
         const int tempo = 2000;
 
-        static int totalDeTentativas = 0;
+        static int totalDeTentativas = 0, cont = 1, contOpcaoInvalida = 1;
 
-        static int cont = 1;
+        static bool opcaoValida = false;
 
         static void Main(string[] args)
         {
@@ -24,27 +24,22 @@
 
             do
             {
-                if (int.TryParse(MostrarMenu(), out int opcao))
+                if (ValidaOpcaoMenu())
                 {
-                    switch (opcao)
-                    {
-                        case 1: totalDeTentativas = 10; break;
-                        case 2: totalDeTentativas = 5; break;
-                        case 3: totalDeTentativas = 3; break;
-                        default: ApresentarMensagem("Opção inválida. Tente novamente!"); continue;
-                    }
+                    opcaoContinuar = true;
                 }
-                else
+                else if (opcaoValida)
                 {
-                    ApresentarMensagem("Entrada inválida. Digite um número inteiro!");
-                    continue;
+                    LogicaDoJogo();
+
+                    Console.WriteLine($"Pontuação final: {pontuacao}");
+
+                    opcaoContinuar = OpcaoContinuar();
                 }
-
-                LogicaDoJogo();
-
-                Console.WriteLine($"Pontuação final: {pontuacao}");
-
-                opcaoContinuar = OpcaoContinuar();
+                else 
+                {
+                    opcaoContinuar = false;
+                }
 
                 Console.Clear();
 
@@ -52,7 +47,7 @@
 
         }
 
-        // Função para exibir o Menu que retornar a string opcao
+        // Função para exibir o Menu que retorna a string opcao
         static string MostrarMenu()
         {
             Console.Clear();
@@ -70,6 +65,36 @@
             string opcao = Console.ReadLine();
 
             return opcao;
+        }
+
+        static bool ValidaOpcaoMenu()
+        {
+            while (contOpcaoInvalida <= 3)
+            {
+                if (int.TryParse(MostrarMenu(), out int opcao))
+                {
+                    switch (opcao)
+                    {
+                        case 1: totalDeTentativas = 10; opcaoValida = true; return false;
+                        case 2: totalDeTentativas = 5; opcaoValida = true; return false;
+                        case 3: totalDeTentativas = 3; opcaoValida = true; return false;
+                        default: ApresentarMensagem("Opção inválida. Tente novamente!"); contOpcaoInvalida++; break;
+                    }
+                }
+                else
+                {
+                    ApresentarMensagem("Entrada inválida. Digite um número inteiro!");
+                    contOpcaoInvalida++;
+                }
+            }
+
+            Console.WriteLine("Você já tentou 3 vezes!");
+
+            contOpcaoInvalida = 1;
+
+            opcaoValida = false;
+
+            return OpcaoContinuar();
         }
 
         // Função para retornar a opção continuar
@@ -121,7 +146,6 @@
                 }
             }
 
-            numerosChutados = new List<int> { };
             cont++;
 
         }
@@ -159,6 +183,10 @@
 
                 RegistrarNumeroChutado(numeroDigitado);
             }
+
+            cont = 1;
+            numerosChutados.Clear();
+
         }
 
 
@@ -169,16 +197,19 @@
             if (!int.TryParse(Console.ReadLine(), out int numeroDigitado))
             {
                 ApresentarMensagem("Entrada inválida. Digite um número inteiro!");
+                cont--;
                 return -1;
             }
             if (numerosChutados.Contains(numeroDigitado))
             {
                 ApresentarMensagem("Número já chutado!");
+                cont--;
                 return -1;
             }
             if (numeroDigitado < 1 || numeroDigitado > 20)
             {
                 ApresentarMensagem("O número digitado está fora do intervalo!");
+                cont--;
                 return -1;
             }
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Marcelo\\OneDrive\\Documentos\\JogoDeAdivinhacaoRech\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp.csproj": {}
+    "C:\\Users\\Marcelo\\OneDrive\\Documentos\\Academia do Programador\\JogoDeAdivinhacaoRech\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Marcelo\\OneDrive\\Documentos\\JogoDeAdivinhacaoRech\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp.csproj": {
+    "C:\\Users\\Marcelo\\OneDrive\\Documentos\\Academia do Programador\\JogoDeAdivinhacaoRech\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Marcelo\\OneDrive\\Documentos\\JogoDeAdivinhacaoRech\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp.csproj",
+        "projectUniqueName": "C:\\Users\\Marcelo\\OneDrive\\Documentos\\Academia do Programador\\JogoDeAdivinhacaoRech\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp.csproj",
         "projectName": "JogoDeAdivinhacao.ConsoleApp",
-        "projectPath": "C:\\Users\\Marcelo\\OneDrive\\Documentos\\JogoDeAdivinhacaoRech\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp.csproj",
+        "projectPath": "C:\\Users\\Marcelo\\OneDrive\\Documentos\\Academia do Programador\\JogoDeAdivinhacaoRech\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp.csproj",
         "packagesPath": "C:\\Users\\Marcelo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Marcelo\\OneDrive\\Documentos\\JogoDeAdivinhacaoRech\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp\\obj\\",
+        "outputPath": "C:\\Users\\Marcelo\\OneDrive\\Documentos\\Academia do Programador\\JogoDeAdivinhacaoRech\\JogoDeAdivinhacao.ConsoleApp\\JogoDeAdivinhacao.ConsoleApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Marcelo\\AppData\\Roaming\\NuGet\\NuGet.Config"
